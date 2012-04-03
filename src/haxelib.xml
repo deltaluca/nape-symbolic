@@ -2,9 +2,9 @@
 	<depends name="nape"/>
 	<depends name="Parsex"/>
 
-	<user name="deltaluca">
-	<tag v="cross">
-	<tag v="game">
+	<user name="deltaluca"/>
+	<tag v="cross"/>
+	<tag v="game"/>
 	<description>Symbolic algebra utility for runtime defined constraints in Nape</description>
 	<version name="1.0">First haxelib release, everything working that is supported at present</version>
-</projected>
+</project>

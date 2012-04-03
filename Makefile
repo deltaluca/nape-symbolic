@@ -6,8 +6,7 @@ swc:
 	haxe -cp src -cp / -cp ../externs --dead-code-elimination --macro "include('symbolic')" -swf symbolic.swc -swf-version 10 -lib Parsex --connect 9000
 
 haxelib:
-	cd src
-	rm -f symboliclib.zip
-	zip -r symboliclib .
-	haxelib test symboliclib.zip
-	cd ../
+	cd src ; \
+	rm -f nape-symboliclib.zip ; \
+	zip -r nape-symboliclib . ; \
+	haxelib test nape-symboliclib.zip
