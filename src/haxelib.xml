@@ -1,5 +1,6 @@
 <project name="nape-symbolic" url="https://github.com/deltaluca/nape-symbolic" license="BSD">
 	<depends name="nape"/>
+	<depends name="Parsex"/>
 
 	<user name="deltaluca">
 	<tag v="cross">
