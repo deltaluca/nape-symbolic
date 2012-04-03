@@ -1,0 +1,16 @@
+body body1, body2
+vector anchor1, anchor2, direction
+scalar jointMin, jointMax
+
+limit jointMin (-inf) jointMax
+limit | direction | eps inf
+
+constraint
+	let r1 = relative body1.rotation anchor1 in
+	let r2 = relative body2.rotation anchor2 in
+	let dir = unit(relative body1.rotation direction) in
+	let del = (body2.position + r2) - (body1.position + r1) in
+	{ dir dot del
+	  dir cross del }
+
+limit constraint { jointMin 0 } { jointMax 0 }

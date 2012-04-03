@@ -1,0 +1,7 @@
+body body1, body2
+vector anchor1, anchor2
+
+constraint
+	let r1 = relative body1.rotation anchor1 in
+	let r2 = relative body2.rotation anchor2 in
+	(body2.position + r2) - (body1.position + r1)
