@@ -1,5 +1,5 @@
 swc:
-	haxe -cp src -cp / -cp ../nape/externs --dead-code-elimination --macro "include('nape.symbolic')" -swf symbolic.swc -swf-version 10 -lib Parsex
+	haxe -cp src -cp / -cp $(NAPE_EXTERNS) --dead-code-elimination --macro "include('nape.symbolic')" -swf symbolic.swc -swf-version 10 -lib Parsex
 
 haxelib:
 	cd src ; \
