@@ -1,7 +1,7 @@
-package symbolic;
+package nape.symbolic;
 
-import symbolic.Expr;
-using symbolic.Expr.ExprUtils;
+import nape.symbolic.Expr;
+using nape.symbolic.Expr.ExprUtils;
 
 import com.mindrocks.text.Parser;
 using com.mindrocks.text.Parser;

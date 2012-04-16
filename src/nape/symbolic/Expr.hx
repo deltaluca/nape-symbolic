@@ -1,4 +1,4 @@
-package symbolic;
+package nape.symbolic;
 
 using Lambda;
 

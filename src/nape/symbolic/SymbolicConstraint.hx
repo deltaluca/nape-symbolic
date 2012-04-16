@@ -1,14 +1,14 @@
-package symbolic;
+package nape.symbolic;
 
 import nape.constraint.UserConstraint;
 import nape.geom.Vec2;
 import nape.geom.Vec3;
 import nape.phys.Body;
 
-import symbolic.Expr;
-import symbolic.Parser;
+import nape.symbolic.Expr;
+import nape.symbolic.Parser;
 
-using symbolic.Expr.ExprUtils;
+using nape.symbolic.Expr.ExprUtils;
 
 typedef ARRAY<T> = #if flash10 flash.Vector<T> #else Array<T> #end;
 
