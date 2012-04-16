@@ -6,3 +6,7 @@ haxelib:
 	rm -f nape-symboliclib.zip ; \
 	zip -r nape-symboliclib . ; \
 	haxelib test nape-symboliclib.zip
+
+tar:
+	rm -rf nape-symbolic.tar.gz
+	tar cvfz nape-symbolic.tar.gz src Makefile remotes version
