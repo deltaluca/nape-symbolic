@@ -9,4 +9,4 @@ haxelib:
 
 tar:
 	rm -rf nape-symbolic.tar.gz
-	tar cvfz nape-symbolic.tar.gz src Makefile remotes version
+	tar cvfz nape-symbolic.tar.gz src Makefile version
