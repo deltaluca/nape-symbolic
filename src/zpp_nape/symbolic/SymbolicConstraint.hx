@@ -13,22 +13,22 @@ using zpp_nape.symbolic.Expr.ExprUtils;
 
 class ZPP_SymbolicConstraint {
 
-	public var context:Context;
+	public var context:Context = null;
 
-	public var variables:Hash<{type:EType,value:Dynamic}>;
-	public var bodies:Hash<Body>; //map body name to real body
-	public var bindices:Array<String>; //map body index to body name
-	public var limits:Array<{limit:Expr,lower:Expr,upper:Expr}>;
+	public var variables:Hash<{type:EType,value:Dynamic}> = null;
+	public var bodies:Hash<Body> = null; //map body name to real body
+	public var bindices:Array<String> = null; //map body index to body name
+	public var limits:Array<{limit:Expr,lower:Expr,upper:Expr}> = null;
 
-	public var posC:Expr;
-	public var velC:Expr;
-	public var J:Array<Expr>;
-	public var effK:Expr;
-	public var dim:Int;
-	public var lower:Expr;
-	public var upper:Expr;
-	public var scale:Array<Float>;
-	public var equal:Array<Bool>;
+	public var posC:Expr = null;
+	public var velC:Expr = null;
+	public var J:Array<Expr> = null;
+	public var effK:Expr = null;
+	public var dim:Int = null;
+	public var lower:Expr = null;
+	public var upper:Expr = null;
+	public var scale:Array<Float> = null;
+	public var equal:Array<Bool> = null;
 
     public function new() {
     }

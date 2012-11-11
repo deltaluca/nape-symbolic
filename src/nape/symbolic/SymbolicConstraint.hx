@@ -117,7 +117,7 @@ class SymbolicConstraint extends UserConstraint {
     /**
      * @private
      */
-    public var zns_inner:ZPP_SymbolicConstraint;
+    public var zns_inner:ZPP_SymbolicConstraint = null;
 
     /**
      * Print internal information about symbolic constraint.
