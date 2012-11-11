@@ -8,7 +8,7 @@ import nape.phys.Body;
 import zpp_nape.symbolic.Expr;
 import zpp_nape.symbolic.Parser;
 import zpp_nape.symbolic.SymbolicConstraint;
-import nape.ARRAY;
+import nape.TArray;
 
 using zpp_nape.symbolic.Expr.ExprUtils;
 
@@ -423,7 +423,7 @@ class SymbolicConstraint extends UserConstraint {
     /**
      * @private
      */
-	public override function __position(err:ARRAY<Float>) {
+	public override function __position(err:TArray<Float>) {
         var context = zns_inner.context;
         var lower = zns_inner.lower;
         var upper = zns_inner.upper;
@@ -457,7 +457,7 @@ class SymbolicConstraint extends UserConstraint {
     /**
      * @private
      */
-	public override function __velocity(err:ARRAY<Float>) {
+	public override function __velocity(err:TArray<Float>) {
         var context = zns_inner.context;
         var bodies = zns_inner.bodies;
 		//set body parameters changing in velocity iterations
@@ -476,7 +476,7 @@ class SymbolicConstraint extends UserConstraint {
     /**
      * @private
      */
-	public override function __eff_mass(out:ARRAY<Float>) {
+	public override function __eff_mass(out:TArray<Float>) {
         var context = zns_inner.context;
         var effK = zns_inner.effK;
         var scale = zns_inner.scale;
@@ -497,7 +497,7 @@ class SymbolicConstraint extends UserConstraint {
     /**
      * @private
      */
-	public override function __clamp(imp:ARRAY<Float>) {
+	public override function __clamp(imp:TArray<Float>) {
         var scale = zns_inner.scale;
         var equal = zns_inner.equal;
 
@@ -507,7 +507,7 @@ class SymbolicConstraint extends UserConstraint {
     /**
      * @private
      */
-	public override function __impulse(imp:ARRAY<Float>,body:Body,out:Vec3) {
+	public override function __impulse(imp:TArray<Float>,body:Body,out:Vec3) {
         var context = zns_inner.context;
         var bodies = zns_inner.bodies;
         var bindices = zns_inner.bindices;

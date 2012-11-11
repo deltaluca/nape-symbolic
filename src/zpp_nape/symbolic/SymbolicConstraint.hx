@@ -7,7 +7,7 @@ import nape.phys.Body;
 
 import zpp_nape.symbolic.Expr;
 import zpp_nape.symbolic.Parser;
-import nape.ARRAY;
+import nape.TArray;
 
 using zpp_nape.symbolic.Expr.ExprUtils;
 
@@ -58,13 +58,13 @@ class ZPP_SymbolicConstraint {
 		}
 	}
 
-	public function dot(a:Array<Array<Float>>,b:ARRAY<Float>) {
+	public function dot(a:Array<Array<Float>>,b:TArray<Float>) {
 		var ret = 0.0;
 		for(i in 0...a.length) ret += a[i][0]*b[i]*scale[i];
 		return ret;
 	}
 
-	public function setvec(e:Expr,vec:ARRAY<Float>,?off:Int=0) {
+	public function setvec(e:Expr,vec:TArray<Float>,?off:Int=0) {
 		switch(e) {
 			case eScalar(x): vec[off++] = x;
 			case eVector(x,y): vec[off++] = x; vec[off++] = y;
