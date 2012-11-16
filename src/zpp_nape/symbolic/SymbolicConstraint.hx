@@ -24,7 +24,7 @@ class ZPP_SymbolicConstraint {
 	public var velC:Expr = null;
 	public var J:Array<Expr> = null;
 	public var effK:Expr = null;
-	public var dim:Int = null;
+	public var dim:Int = 0;
 	public var lower:Expr = null;
 	public var upper:Expr = null;
 	public var scale:Array<Float> = null;
