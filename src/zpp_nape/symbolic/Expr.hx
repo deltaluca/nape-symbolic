@@ -1,4 +1,4 @@
-package nape.symbolic;
+package zpp_nape.symbolic;
 
 using Lambda;
 
@@ -8,12 +8,12 @@ enum Expr {
 	eVector(x:Float,y:Float);
 	eMatrix(a:Float,b:Float,c:Float,d:Float);
 
-	eRelative(rot:String,x:Expr);	
+	eRelative(rot:String,x:Expr);
 
 	eVariable(n:String);
 	eLet(n:String,equals:Expr,within:Expr);
 
-	eAdd(x:Expr,y:Expr); 
+	eAdd(x:Expr,y:Expr);
 	eMul(x:Expr,y:Expr);
 	eDot(x:Expr,y:Expr);
 	eCross(x:Expr,y:Expr);
@@ -38,8 +38,6 @@ typedef Context = {
 	env  : Hash<Array<Expr>>, //let's
 	vars : Hash<{type:EType,del:Expr,let:Bool}> //vars
 };
-
-//-----------------------------------------------------------
 
 class ExprUtils {
 	static public function emptyContext() {
@@ -138,7 +136,7 @@ class ExprUtils {
 
 			case eVariable(n): n;
 			case eLet(n,eq,of): "let "+n+"="+print(eq)+" in\n"+print(of);
-	
+
 			case eAdd(x,y): "("+print(x)+"+"+print(y)+")";
 			case eMul(x,y): "("+print(x)+"*"+print(y)+")";
 			case eDot(x,y): "("+print(x)+" dot "+print(y)+")";
@@ -149,7 +147,7 @@ class ExprUtils {
 			case eInv(x): "(1/"+print(x)+")";
 			case eUnit(x): "(unit "+print(x)+")";
 
-			case eBlock(xs): 
+			case eBlock(xs):
 				var ret = "{";
 				var fst = true;
 				for(x in xs) { if(!fst) ret += "\n"; fst = false; ret += print(x); }
@@ -169,8 +167,8 @@ class ExprUtils {
 			case eRowVector(_,_): etRowVector;
 			case eMatrix(_,_,_,_): etMatrix;
 			case eRelative(_,_): etVector;
-	
-			case eVariable(n): 
+
+			case eVariable(n):
 				if(context.env.exists(n))
 					 etype(context.env.get(n)[0],context);
 				else {
@@ -219,7 +217,7 @@ class ExprUtils {
 					}
 				}
 				eMulType(etype(x,context),etype(y,context));
-			case eDot(x,y): 
+			case eDot(x,y):
 				switch(etype(x,context)) { case etRowVector: etMatrix; default: etScalar; } //improve TODO
 			case eCross(x,y):
 				var xt = etype(x,context);
@@ -251,7 +249,7 @@ class ExprUtils {
 						case etBlock(ys): etBlock(map(ys, function(y) return eOuterType(xt,y)));
 						case etScalar: etScalar;
 						case etVector: etRowVector;
-						case etRowVector: etVector;	
+						case etRowVector: etVector;
 						default: throw "TypeError: Cannot produce outerproduct of scalar with matrix"; null;
 						}
 					case etVector:
@@ -318,7 +316,7 @@ class ExprUtils {
 				redactContext(context, n);
 				if(err!=null) throw err;
 				ret;
-			
+
 			case eAdd(inx,iny):
 				var x = eval(inx,context);
 				var y = eval(iny,context);
@@ -330,7 +328,7 @@ class ExprUtils {
 				case eRowVector(x1,x2): switch(y) { case eRowVector(y1,y2): eRowVector(x1+y1,x2+y2); default: throw "Error: eAdd(eRowVector,¬eRowVector)"; null; }
 				default: throw "Error: eAdd(x!=value,_) with inx="+Std.string(inx)+" and x="+Std.string(x); null;
 				}
-			
+
 			case eMul(inx,iny):
 				var x = eval(inx,context);
 				var y = eval(iny,context);
@@ -390,7 +388,7 @@ class ExprUtils {
 					case eScalar(y): eVector(x2*y,-x1*y);
 					default: throw "Error: eCross(eVector,!(eVector|eScalar))"; null;
 				}
-				default: throw "Error: eCross(¬(eVector|eScalar))"; null;	
+				default: throw "Error: eCross(¬(eVector|eScalar))"; null;
 				}
 			case ePerp(inx):
 				var x = eval(inx,context);
@@ -435,7 +433,7 @@ class ExprUtils {
 				case eVector(x,y): eScalar(Math.sqrt(x*x+y*y));
 				case eRowVector(x,y): eScalar(Math.sqrt(x*x+y*y));
 				default: throw "Error: eMag(¬scalar/vector-type)"; null;
-				}	
+				}
 			case eInv(inx):
 				var x = eval(inx,context);
 				switch(x) {
@@ -456,7 +454,7 @@ class ExprUtils {
 				var ret = eBlock(x);
 				for(xi in x) if(xi==null) ret = null;
 				ret;
-		}	
+		}
 	}
 
 	//---------------------------------------------------------------------------
@@ -502,15 +500,15 @@ class ExprUtils {
 				case eRelative(rot,x): (rot==on ? 1 : 0) + countof(x,on);
 				case eLet(_,equals,within): countof(equals,on) + countof(within,on);
 				case eAdd(a,b): countof(a,on) + countof(b,on);
-				case eMul(a,b): countof(a,on) + countof(b,on);	
-				case eCross(a,b): countof(a,on) + countof(b,on);	
-				case eDot(a,b): countof(a,on) + countof(b,on);	
-				case eOuter(a,b): countof(a,on) + countof(b,on);	
+				case eMul(a,b): countof(a,on) + countof(b,on);
+				case eCross(a,b): countof(a,on) + countof(b,on);
+				case eDot(a,b): countof(a,on) + countof(b,on);
+				case eOuter(a,b): countof(a,on) + countof(b,on);
 				case eMag(a): countof(a,on);
 				case eInv(a): countof(a,on);
 				case eUnit(a): countof(a,on);
 				case ePerp(a): countof(a,on);
-				case eBlock(xs): 
+				case eBlock(xs):
 					var c = 0;
 					for(x in xs) c += countof(x,on);
 					c;
@@ -556,7 +554,7 @@ class ExprUtils {
 				var y = _simple(iny);
 				if(zero(x)) y else if(zero(y)) x
 				else {
-					var ret = 
+					var ret =
 					switch(x) { case eBlock(xs):
 					switch(y) { case eBlock(ys):
 						eBlock(zipWith(xs,ys,function (x,y) return eAdd(x,y)));
@@ -637,7 +635,7 @@ class ExprUtils {
 			case eRelative(rot,x):
 				if(wrt==null) eCross(_diff(eVariable(rot)),eRelative(rot,x));
 				else eVector(0,0);
-			
+
 			case eVariable(n):
 				if(!context.vars.exists(n)) {
 					if(!context.env.exists(n)) throw "Error: Cannot find variable '"+n+"'";
@@ -684,7 +682,7 @@ class ExprUtils {
 			case eMul(x,y):
 				var dx = _diff(x);
 				var dy = _diff(y);
-				eAdd(eMul(dx,y),eMul(x,dy)); 
+				eAdd(eMul(dx,y),eMul(x,dy));
 			case eDot(x,y):
 				var dx = _diff(x);
 				var dy = _diff(y);
@@ -700,7 +698,7 @@ class ExprUtils {
 				eAdd(eOuter(dx,y),eOuter(x,dy));
 			case eMag(x): eDot(eUnit(x),_diff(x));
 			case eInv(x): eMul(eScalar(-1),eMul(eInv(eMul(x,x)),_diff(x)));
-			case eUnit(x): 
+			case eUnit(x):
 				var unit = "unit__"+(unitcnt++);
 				eLet(unit, eUnit(x), eMul(
 					ePerp(eVariable(unit)),

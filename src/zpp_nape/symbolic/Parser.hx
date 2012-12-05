@@ -1,7 +1,7 @@
-package nape.symbolic;
+package zpp_nape.symbolic;
 
-import nape.symbolic.Expr;
-using nape.symbolic.Expr.ExprUtils;
+import zpp_nape.symbolic.Expr;
+using zpp_nape.symbolic.Expr.ExprUtils;
 
 import com.mindrocks.text.Parser;
 using com.mindrocks.text.Parser;
@@ -15,87 +15,6 @@ import com.mindrocks.text.ParserMonad;
 using com.mindrocks.text.ParserMonad;
 
 using Lambda;
-
-/*
-	# this is a comment
-	# body declarations
-	body name (, name)*
-	
-	# variable declarations
-	scalar|vector name (= default-literal) (-> time-derivative)? # and many allowed
-	
-	# constraint expression
-	constraint expression
-
-	# constraint/variable limits (optional; default 0's)
-	# the types of min-expression max-expressino must
-	#     match the variable|constraint, with <= >=
-	#     done on seperate values of non-scalars
-	# limits for variables checked in verify() step of constraint
-	limit expression min-expression max-expression
-	
-	# expression may be:
-	# a literal
-	inf
-	eps
-	scalar
-	[ scalar scalar]
-	[ scalar scalar ; scalar scalar ]
-	[ scalar ; scalar ]
-	
-	# a block expression
-	{ expression* }
-
-	# a let expression
-	let name = expression in expression
-
-	# with operators (defined in order of highest precedence to lowest)
-	| expression | # magnitude (of a vector/scalar)
-    [ expression ] # perpendicular-vector (of a vector)
-    unit expression # unit of a vector/scalar (sign function on scalar)
-    relative variable expression # define vector-expression as being in a local coordinate system who's rotation is defined by the given variable
-	a * b, a / b # multiplication, division
-	a dot b, a cross b # dot product and cross product defined like a dot b = tranpose(a)*b, a cross b = a dot [b]
-	a outer b # outer product, defined like a outer b = a*transpose(b)
-    a + b, a - b # addition, subtraction
-    let name = a in expression # scoped dependent variable
-*/
-
-/* eg: Nape's DistanceJoint
-
-	body body1, body2
-	vector anchor1, anchor2
-	scalar jointMin, jointMax
-
-	limit jointMin 0 jointMax
-
-	constraint 
-		let r1 = relative body1.rotation anchor1 in
-		let r2 = relative body2.rotation anchor2 in
-		| (body2.position + r2) - (body1.position + r1) |
-
-	limit constraint jointMin jointMax
-*/
-
-/* eg: Nape's LineJoint
-
-	body body1, body2
-	vector anchor1, anchor2, direction
-	scalar jointMin, jointMax
-
-	limit jointMin (-inf) jointMax
-	limit | direction | eps inf
-
-	constraint 
-		let r1 = relative body1.rotation anchor1 in
-		let r2 = relative body2.rotation anchor2 in
-		let dir = unit (relative body1.rotation direction) in
-		let del = (body2.position + r2) - (body1.position + r1) in
-		{ del dot dir
-		  del cross dir }
-
-	limit constraint { jointMin 0 } { jointMax 0 }
-*/
 
 enum Atom {
 	aBodies(names:Array<String>);
@@ -115,7 +34,7 @@ class ConstraintParser {
 
 	//comments
 	static var commentR = ~/#.*/;
-	
+
 	static var spacingP = [
 		spaceP.oneMany(),
 		tabP.oneMany(),
@@ -144,7 +63,7 @@ class ConstraintParser {
 			y <= p;
 			rest(x.concat([y]));
 		}).or(x.success());
-	
+
 		return ParserM.dO({ x <= p; rest([x]); });
 	}
 
