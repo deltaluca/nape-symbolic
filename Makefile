@@ -1,9 +1,13 @@
 def:
-	haxe -cp src -cp / -lib nape --dead-code-elimination -main DummySymbolicMain -swf symbolic.swf -swf-version 10 -lib Parsex
+	haxe -cp src -cp / -lib nape --dce full -main DummySymbolicMain -swf symbolic.swf -swf-version 10 -lib Parsex -D haxe3
+	debugfp symbolic.swf
+
+test:
+	haxe -lib nape -lib nape-symbolic --dce full -main DummySymbolicMain -swf symbolic.swf -swf-version 10 -lib Parsex -D haxe3
 	debugfp symbolic.swf
 
 swc:
-	haxe -cp src -cp / -cp $(NAPE_EXTERNS) --dead-code-elimination --macro "include('nape.symbolic')" -swf symbolic.swc -swf-version 10 -lib Parsex
+	haxe -cp src -cp / -cp ../nape/externs --dce full --macro "include('nape.symbolic')" -swf symbolic.swc -swf-version 10 -lib Parsex
 
 haxelib:
 	cd src ; \
@@ -11,6 +15,6 @@ haxelib:
 	zip -r nape-symboliclib . ; \
 	haxelib test nape-symboliclib.zip
 
-tar:
-	rm -rf nape-symbolic.tar.gz
-	tar cvfz nape-symbolic.tar.gz src Makefile version
+clean:
+	rm symbolic.swf
+	rm symbolic.swc
