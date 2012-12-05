@@ -7,7 +7,7 @@ test:
 	debugfp symbolic.swf
 
 swc:
-	haxe -cp src -cp / -cp ../nape/externs --dce full --macro "include('nape.symbolic')" -swf symbolic.swc -swf-version 10 -lib Parsex
+	haxe -cp src -cp / -cp ../nape/externs --dce full --macro "include('nape.symbolic')" -swf nape-symbolic.swc -swf-version 10 -lib Parsex
 
 haxelib:
 	cd src ; \
@@ -17,4 +17,4 @@ haxelib:
 
 clean:
 	rm symbolic.swf
-	rm symbolic.swc
+	rm nape-symbolic.swc
