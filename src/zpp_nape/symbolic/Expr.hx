@@ -34,6 +34,10 @@ enum EType {
 	etRowVector;
 }
 
+#if haxe3
+    typedef Hash<T> = Map<String,T>;
+#end
+
 typedef Context = {
 	env  : Hash<Array<Expr>>, //let's
 	vars : Hash<{type:EType,del:Expr,let:Bool}> //vars

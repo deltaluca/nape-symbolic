@@ -42,7 +42,7 @@ class ConstraintParser {
 		commentR.regexParser().oneMany()
 	].ors().many();
 
-	static function withSpacing<T>(p:Void->Parser<String,T>) return spacingP._and(p)
+	static function withSpacing<T>(p:Void->Parser<String,T>) return spacingP._and(p);
 
 	//--------------------------------------------------------
 

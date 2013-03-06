@@ -6,5 +6,5 @@
 	<tag v="cross"/>
 	<tag v="game"/>
 	<description>Symbolic algebra utility for runtime defined constraints in Nape</description>
-	<version name="2.0.0">Updated for new Nape version.</version>
+	<version name="2.0.1">Updated for Haxe 3.</version>
 </project>
