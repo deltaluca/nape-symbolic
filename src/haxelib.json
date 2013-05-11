@@ -1,0 +1,14 @@
+{
+    "name":         "nape-symbolic",
+    "url":          "https://github.com/deltaluca/nape-symbolic",
+    "license":      "BSD",
+    "tags":         ["cross", "game"],
+    "description":  "Symbolic algebra utility for runtime defined constraints in Nape.",
+    "version":      "2.0.1",
+    "releasenote":  "First release on new haxelib",
+    "contributors": ["deltaluca"],
+    "dependencies": {
+        "nape" : "",
+        "Parsex" : ""
+    }
+}

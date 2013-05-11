@@ -188,7 +188,7 @@ class ExprUtils {
 				redactContext(context, n);
 				ret;
 
-			case eAdd(x,y): etype(x,context);
+			case eAdd(x,_): etype(x,context);
 			case eMul(x,y):
 				function eMulType(xt,yt) {
 					return switch(xt) {
@@ -217,11 +217,10 @@ class ExprUtils {
 						case etMatrix: etMatrix;
 						default: throw "TypeError: Cannot multiply matrix with row-vector"; null;
 						}
-					default: null;
 					}
 				}
 				eMulType(etype(x,context),etype(y,context));
-			case eDot(x,y):
+			case eDot(x,_):
 				switch(etype(x,context)) { case etRowVector: etMatrix; default: etScalar; } //improve TODO
 			case eCross(x,y):
 				var xt = etype(x,context);
@@ -274,8 +273,8 @@ class ExprUtils {
 					}
 				}
 				eOuterType(etype(x,context),etype(y,context));
-			case eMag(x): etScalar;
-			case eInv(x): etScalar;
+			case eMag(_): etScalar;
+			case eInv(_): etScalar;
 			case eUnit(x): etype(x,context);
 
 			case eBlock(xs): etBlock(map(xs,function (y) return etype(y,context)));

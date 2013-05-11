@@ -13,7 +13,7 @@ haxelib:
 	cd src ; \
 	rm -f nape-symboliclib.zip ; \
 	zip -r nape-symboliclib . ; \
-	haxelib test nape-symboliclib.zip
+	haxelib local nape-symboliclib.zip
 
 clean:
 	rm symbolic.swf
